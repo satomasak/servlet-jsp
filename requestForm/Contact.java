@@ -35,13 +35,10 @@ public class Contact extends HttpServlet{
         //戻り値がPrintWriterのオブジェクトであるresponse.getWriterメソッドでクライアントにテキストを送信する準備
         PrintWriter out = response.getWriter();
         //クライアントに表示するためのHTMLの記述
-        out.println("<!doctype html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<mata charset=\"utf-8\">");
-        out.println("<title>入力確認</title>");
-        out.println("</head>");
-        out.println("<body>");
+        //HTML共通部分の利用
+        Page page = new Page();
+        page.header(out);
+
         out.println("<p>お名前："+name+"\n様</p>");
         out.println("<p>ご住所:"+address+"</p>");
         out.println("<p>お電話番号:"+tel+"</p>");
@@ -60,8 +57,8 @@ public class Contact extends HttpServlet{
                 }
                 out.println("</p>");
         }
-        out.println("</body>");
-        out.println("</html>");
+
+        page.footer(out);
     }
 
 }
