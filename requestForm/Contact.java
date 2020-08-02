@@ -20,9 +20,15 @@ public class Contact extends HttpServlet{
         String address = request.getParameter("address");
         String tel = request.getParameter("tel");
         String mail = request.getParameter("mail");
+        //問い合わせ内容
         String check = request.getParameter("check");
         String contents = request.getParameter("contents");
+        //折り返し連絡方法
         String answer = request.getParameter("answer");
+        //メールマガジンの受信設定
+        String mailmgzn = request.getParameter("mailmgzn");
+        //複数選択可能なチェックボックス対応
+        String[] inf = request.getParameterValues("inf");
 
         //レスポンス表示のための文字エンコーディング指定
         response.setContentType("text/html; charset=utf-8");
@@ -43,6 +49,17 @@ public class Contact extends HttpServlet{
         out.println("<p>お問い合わせ内容:"+check+"</p>");
         out.println("<p>"+contents+"</p>");
         out.println("<p>ご連絡方法:"+answer+"</p>");
+        out.println("<p>メールマガジン設定:"+mailmgzn+"</p>");
+        //複数選択の取り出し　選択されていなければおすすめ情報の配信
+        if(inf == null){
+            out.println("<p>弊社おすすめの情報を配信します</p>");
+        } else {
+            out.println("<p>希望ジャンル");
+                for(String s : inf){
+                    out.println("\n"+s+"\n");
+                }
+                out.println("</p>");
+        }
         out.println("</body>");
         out.println("</html>");
     }
